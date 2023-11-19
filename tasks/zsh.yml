@@ -1,0 +1,17 @@
+    - name: install zsh 
+      pacman:
+        update_cache: yes
+        name:
+          - zsh
+          - starship
+
+    - name: Install zsh-autosuggestions
+      ansible.builtin.git:
+        repo: 'https://github.com/zsh-users/zsh-autosuggestions'
+        dest: "~/.zsh/zsh-autosuggestions"
+
+    - name: Install zsh-syntax-highlighting 
+      ansible.builtin.git:
+        repo: 'https://github.com/zsh-users/zsh-syntax-highlighting'
+        dest: "~/.zsh/zsh-syntax-highlighting"
+

@@ -1,0 +1,8 @@
+    - name: install tmux 
+      pacman:
+        update_cache: yes
+        name:
+          - tmux
+
+    - name: install gitmux
+      shell: runuser -l {{ ansible_user }} -c 'yay -S gitmux --noconfirm' 

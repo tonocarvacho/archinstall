@@ -1,2 +1,4 @@
 FROM archlinux
-RUN pacman -Sy --noconfirm curl git ansible
+RUN pacman -Syu --noconfirm git ansible vifm sudo 
+COPY . .
+#CMD ["sh", "-c", "ansible-playbook $TAGS local.yml"]

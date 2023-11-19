@@ -1,0 +1,13 @@
+[target_arch_machines]
+localhost
+
+[all:vars]
+ansible_connection=local
+#ansible_connection=ssh
+ansible_user=tono
+# ansible_ssh_pass=aaa
+# ansible_sudo_pass=aaa
+gradle_version="7.6.3"
+gradle_zip_file="gradle-{{ gradle_version }}-bin.zip"
+gradle_download_url="https://services.gradle.org/distributions/{{ gradle_zip_file }}"
+gradle_installation_path="/opt/gradle"

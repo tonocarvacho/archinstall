@@ -1,0 +1,37 @@
+# YAY TO ACCESS AUR REPOSITORY  ----------------------------------------------
+    - name: disable need for password for pacman to allow yay install
+      lineinfile:
+        path: /etc/sudoers.d/temp_allow_no_pswd_pacman
+        state: present
+        line: "ALL ALL=NOPASSWD: /usr/bin/pacman"
+        validate: /usr/sbin/visudo -cf %s
+        create: yes
+
+    - name: git clone yay-bin repo in to /tmp
+      become: yes
+      become_user: "{{ ansible_user }}"     
+      git:
+        repo: 'https://aur.archlinux.org/yay-bin.git'
+        dest: /tmp/yay-bin
+        clone: yes
+
+    - name: install yay using makepkg
+      shell: runuser -l {{ ansible_user }} -c 'cd /tmp/yay-bin && makepkg -si --noconfirm' 
+
+    - name: re-enable need for password for pacman
+      file:
+        path: /etc/sudoers.d/temp_allow_no_pswd_pacman
+        state: absent
+
+    - name: set yay options to cleanafter package installation
+      become: yes
+      become_user: "{{ ansible_user }}"     
+      shell: yay -Y --answerclean All --removemake --cleanafter --answerdiff None --save 
+      args:
+        executable: /usr/bin/bash
+
+    - name: set yay options to cleanafter package installation
+      become: no
+      shell: yay -Y --answerclean All --removemake --cleanafter --answerdiff None --save 
+      args:
+        executable: /usr/bin/bash

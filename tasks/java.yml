@@ -1,0 +1,24 @@
+    - name: install java & gradle 
+      pacman:
+        update_cache: yes
+        name:
+          - jdk17-openjdk
+
+    - name: Create Gradle installation directory
+      file:
+        path: "{{ gradle_installation_path }}"
+        state: directory
+
+    - name: Download Gradle
+      get_url:
+        url: "{{ gradle_download_url }}"
+        dest: "/tmp/{{ gradle_zip_file }}"
+
+    - name: Unzip Gradle
+      ansible.builtin.unarchive:
+        src: "/tmp/{{ gradle_zip_file }}"
+        dest: "{{ gradle_installation_path }}"
+        remote_src: yes
+
+    - name: Verify Gradle installation
+      ansible.builtin.command: "{{ gradle_installation_path }}/gradle-{{ gradle_version }}/bin/gradle -v"

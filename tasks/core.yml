@@ -1,0 +1,56 @@
+    - name: install base 
+      pacman:
+        update_cache: yes
+        name:
+          - curl
+          - base-devel
+          - cmake
+          - fzf
+          - python-pip
+          - python-pexpect
+          - python-setuptools
+          - unzip
+
+# USERS PERMISSIONS  ---------------------------------------------------------
+    - name: add the user to the root group
+      user:
+        name: "{{ ansible_user }}"
+        groups: root
+        append: yes
+
+    - name: disable need for sudo password for the current user
+      lineinfile:
+        path: "/etc/sudoers.d/02_no_pswd_for_{{ ansible_env.SUDO_UID }}"
+        state: present
+        line: "{{ ansible_user }} ALL=(ALL:ALL) NOPASSWD: ALL"
+        validate: /usr/sbin/visudo -cf %s
+        create: yes
+
+
+# SYSTEM SETTINGS CHANGES ----------------------------------------------------
+
+    - name: pacman - enable color
+      lineinfile:
+        path: /etc/pacman.conf
+        regexp: '^#Color$'
+        line: 'Color'
+
+    - name: pacman - enable ParallelDownloads = 5
+      lineinfile:
+        path: /etc/pacman.conf
+        regexp: '#ParallelDownloads = 5'
+        line: 'ParallelDownloads = 5'
+
+# SSH ------------------------------------------------------------------------
+
+    #- name: install ssh
+      #pacman:
+        #name:
+          #- openssh
+
+    #- name: enable and start ssh service
+      #systemd:
+        #name: sshd
+        #enabled: yes
+        #state: started
+

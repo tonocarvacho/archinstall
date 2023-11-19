@@ -1,0 +1,13 @@
+    - name: install stow 
+      pacman:
+        update_cache: yes
+        name:
+          - stow
+
+    - name: clone dotfiles
+      ansible.builtin.git:
+        repo: 'https://github.com/tonocarvacho/.dotfiles'
+        dest: "~/.dotfiles"
+
+    - name: stow dotfiles
+      shell: cd ~/.dotfiles && stow zsh && stow fzf && stow starship && stow nvim && stow tmux && stow bin -t /usr/local/bin && stow vifm && stow scrot
