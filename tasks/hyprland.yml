@@ -32,6 +32,9 @@
       pacman:
         name:
           - waybar
+      tags:
+        - install
+        - hyprland
 
 
 

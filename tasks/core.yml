@@ -5,12 +5,12 @@
           - curl
           - base-devel
           - cmake
-          # - python-pip
-          # - python-pexpect
-          # - python-setuptools
+          - python-pip
+          - python-pexpect
+          - python-setuptools
           - unzip
           - ripgrep
-          # - xorg-server
+          - xorg-server
           - nvidia
       tags:
       - core      
@@ -64,20 +64,20 @@
 
 # SSH ------------------------------------------------------------------------
 
-    # - name: install ssh
-    #   pacman:
-    #     name:
-    #       - openssh
-    #   tags:
-    #   - core 
-    #   - install
+    - name: install ssh
+      pacman:
+        name:
+          - openssh
+      tags:
+      - core 
+      - install
 
-    # - name: enable and start ssh service
-    #   systemd:
-    #     name: sshd
-    #     enabled: yes
-    #     state: started
-    #   tags:
-    #   - core 
-    #   - install
+    - name: enable and start ssh service
+      systemd:
+        name: sshd
+        enabled: yes
+        state: started
+      tags:
+      - core 
+      - install
 

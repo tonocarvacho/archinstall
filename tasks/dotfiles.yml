@@ -15,9 +15,16 @@
       - install
 
     - name: stow dotfiles
-      shell: cd /home/{{ ansible_user }}/.dotfiles && stow zsh && stow fzf && stow starship && stow config && stow tmux && stow bin && stow vifm && stow hypr
+      shell: cd /home/{{ ansible_user }}/.dotfiles && stow zsh && stow fzf && stow starship && stow config && stow tmux && stow bin && stow vifm && stow hypr && stow waybar && stow kitty && stow images
       tags:
       - dotfiles 
       - install
 
-# stow bin -t /usr/local/bin
+    - name: copy tmux-sessionizer
+      become: true
+      copy:
+        src: /home/{{ ansible_user }}/.dotfiles/bin/.local/bin/tmux-sessionizer
+        dest: /usr/local/bin/tmux-sessionizer
+      tags:
+      - dotfiles 
+      - install
