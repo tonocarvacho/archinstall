@@ -19,6 +19,7 @@
       - install
 
     - name: install more apps with yay
+      become: true
       shell: runuser -l {{ ansible_user }} -c 'yay -S brave-bin google-chrome slack-desktop gummy --noconfirm' 
       tags:
       - apps   

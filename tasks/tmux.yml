@@ -9,6 +9,7 @@
       - tmux
 
     - name: install gitmux
+      become: true
       shell: runuser -l {{ ansible_user }} -c 'yay -S gitmux --noconfirm' 
       tags:
       - install

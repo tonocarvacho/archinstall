@@ -33,7 +33,6 @@
 
     - name: install yay using makepkg
       become: yes
-      become_user: "{{ ansible_user }}" 
       shell: runuser -l {{ ansible_user }} -c 'cd /home/{{ ansible_user }}/tmp/yay-bin && makepkg -si --noconfirm' 
       tags:
         - install
@@ -47,7 +46,8 @@
         - install
         - yay
 
-    - name: set yay options to cleanafter package installation   
+    - name: set yay options to cleanafter package installation  
+      become: true 
       shell: runuser -l {{ ansible_user }} -c 'yay -Y --answerclean All --removemake --cleanafter --answerdiff None --save' 
       args:
         executable: /usr/bin/bash
@@ -56,6 +56,7 @@
       - yay
 
     - name: set yay options to cleanafter package installation
+      become: true
       shell: runuser -l {{ ansible_user }} -c 'yay -Y --answerclean All --removemake --cleanafter --answerdiff None --save' 
       args:
         executable: /usr/bin/bash
