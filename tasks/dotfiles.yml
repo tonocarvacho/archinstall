@@ -15,7 +15,9 @@
       - install
 
     - name: stow dotfiles
-      shell: cd /home/{{ ansible_user }}/.dotfiles && stow zsh && stow fzf && stow starship && stow config && stow tmux && stow bin -t /usr/local/bin && stow vifm && stow hypr
+      shell: cd /home/{{ ansible_user }}/.dotfiles && stow zsh && stow fzf && stow starship && stow config && stow tmux && stow bin && stow vifm && stow hypr
       tags:
       - dotfiles 
       - install
+
+# stow bin -t /usr/local/bin
