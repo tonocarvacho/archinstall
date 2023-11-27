@@ -1,4 +1,5 @@
     - name: install stow 
+      become: true
       pacman:
         name:
           - stow
@@ -7,6 +8,8 @@
       - install
 
     - name: clone dotfiles
+      become: true
+      become_user: "{{ ansible_user }}"
       git:
         repo: 'https://github.com/tonocarvacho/.dotfiles'
         dest: "/home/{{ ansible_user }}/.dotfiles"
@@ -15,6 +18,8 @@
       - install
 
     - name: stow dotfiles
+      become: true
+      become_user: "{{ ansible_user }}"
       shell: cd /home/{{ ansible_user }}/.dotfiles && stow zsh && stow fzf && stow starship && stow config && stow tmux && stow bin && stow vifm && stow hypr && stow waybar && stow kitty && stow images
       tags:
       - dotfiles 
