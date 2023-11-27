@@ -10,19 +10,31 @@
         - install
         - yay
 
+    - name: Ensure the directory exists
+      become: true
+      become_user: "{{ ansible_user }}"
+      file:
+        path: "/home/{{ ansible_user }}/tmp"
+        state: directory
+      tags:
+        - install
+        - fonts
+
     - name: git clone yay-bin repo in to /tmp
       become: yes
       become_user: "{{ ansible_user }}"     
       git:
         repo: 'https://aur.archlinux.org/yay-bin.git'
-        dest: /tmp/yay-bin
+        dest: "/home/{{ ansible_user }}/tmp/yay-bin"
         clone: yes
       tags:
         - install
         - yay
 
     - name: install yay using makepkg
-      shell: runuser -l {{ ansible_user }} -c 'cd /tmp/yay-bin && makepkg -si --noconfirm' 
+      become: yes
+      become_user: "{{ ansible_user }}" 
+      shell: runuser -l {{ ansible_user }} -c 'cd /home/{{ ansible_user }}/tmp/yay-bin && makepkg -si --noconfirm' 
       tags:
         - install
         - yay
@@ -35,10 +47,8 @@
         - install
         - yay
 
-    - name: set yay options to cleanafter package installation
-      become: yes
-      become_user: "{{ ansible_user }}"     
-      shell: yay -Y --answerclean All --removemake --cleanafter --answerdiff None --save 
+    - name: set yay options to cleanafter package installation   
+      shell: runuser -l {{ ansible_user }} -c 'yay -Y --answerclean All --removemake --cleanafter --answerdiff None --save' 
       args:
         executable: /usr/bin/bash
       tags:
@@ -46,8 +56,7 @@
       - yay
 
     - name: set yay options to cleanafter package installation
-      become: no
-      shell: yay -Y --answerclean All --removemake --cleanafter --answerdiff None --save 
+      shell: runuser -l {{ ansible_user }} -c 'yay -Y --answerclean All --removemake --cleanafter --answerdiff None --save' 
       args:
         executable: /usr/bin/bash
       tags:
