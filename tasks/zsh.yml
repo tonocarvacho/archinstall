@@ -25,9 +25,9 @@
       - install
       - zsh
 
-    # - name: set zsh default
-    #   shell: chsh -s $(which zsh)
-    #   tags:
-    #   - install
-    #   - zsh
+    - name: set zsh default
+      shell: chsh -s $(which zsh)
+      tags:
+      - install
+      - zsh
 

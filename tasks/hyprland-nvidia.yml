@@ -1,4 +1,4 @@
-    - name: Install hyrland necesary dependencies with yay
+    - name: Install hyrland nvidia necesary dependencies with yay
       become: true
       shell: runuser -l {{ ansible_user }} -c 'yay -Syu --noconfirm linux-headers nvidia-settings libva libva-nvidia-driver-git'
       tags:
