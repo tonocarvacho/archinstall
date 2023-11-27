@@ -1,0 +1,42 @@
+    - name: Install hyrland necesary dependencies with yay
+      shell: runuser -l {{ ansible_user }} -c 'yay -Syu --noconfirm linux-headers nvidia-settings libva libva-nvidia-driver-git'
+      tags:
+        - install
+        - hyprland-nvidia
+
+    # - name: update /boot/loader/entries/*_linux.config
+    #   become: true
+    #   shell: sed -i '$ a\nvidia_drm.modeset=1' /boot/loader/entries/*_linux.config
+    #   tags:
+    #     - install
+    #     - hyprland-nvidia
+
+    # - name: update mkinitcpio.conf
+    #   become: true
+    #   shell: sed -i 's/MODULES=()/MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)/' /etc/mkinitcpio.conf && mkinitcpio --config /etc/mkinitcpio.conf --generate /boot/initramfs-custom.img
+    #   tags:
+    #     - install
+    #     - hyprland-nvidia
+
+    - name: Ensure /etc/modprobe.d/nvidia.conf exists
+      become: true
+      file:
+        path: /etc/modprobe.d/nvidia.conf
+        state: touch
+        mode: 0644
+      tags:
+        - install
+        - hyprland-nvidia
+
+    - name: Add the line "options nvidia-drm modeset=1" to /etc/modprobe.d/nvidia.conf
+      become: true
+      lineinfile:
+        path: /etc/modprobe.d/nvidia.conf
+        line: "options nvidia-drm modeset=1"
+        create: yes
+      tags:
+        - install
+        - hyprland-nvidia
+
+
+

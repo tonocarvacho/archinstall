@@ -1,48 +1,32 @@
     - name: install apps 
+      become: true
       pacman:
-        update_cache: yes
         name:
           - spotify-launcher 
-          - vlc
+          - mpv
           - vifm
-          - nvidia
-          - xclip
+          - nemo
           - obs-studio
           - discord
           - docker
-          - scrot
           - kitty
+          - fzf
+          - easyeffects
+          - playerctl
+          - rofi
+      tags:
+      - apps
+      - install
+
+    - name: install more apps with yay
+      shell: runuser -l {{ ansible_user }} -c 'yay -S brave-bin google-chrome slack-desktop gummy --noconfirm' 
+      tags:
+      - apps   
+      - install  
 
     - name: clean cache
+      become: true
       shell: pacman -Sc 
-
-    - name: install brave
-      shell: runuser -l {{ ansible_user }} -c 'yay -S brave-bin --noconfirm' 
-
-    - name: install google-chrome 
-      shell: runuser -l {{ ansible_user }} -c 'yay -S google-chrome --noconfirm' 
-
-    - name: install slack 
-      shell: runuser -l {{ ansible_user }} -c 'yay -S slack-desktop --noconfirm' 
-
-    - name: install gummy 
-      shell: runuser -l {{ ansible_user }} -c 'yay -S gummy --noconfirm' 
-
-    - name: Create Gradle installation directory
-      file:
-        path: "{{ gradle_installation_path }}"
-        state: directory
-
-    - name: Download Gradle
-      get_url:
-        url: "{{ gradle_download_url }}"
-        dest: "/tmp/{{ gradle_zip_file }}"
-
-    - name: Unzip Gradle
-      ansible.builtin.unarchive:
-        src: "/tmp/{{ gradle_zip_file }}"
-        dest: "{{ gradle_installation_path }}"
-        remote_src: yes
-
-    - name: Verify Gradle installation
-      ansible.builtin.command: "{{ gradle_installation_path }}/gradle-{{ gradle_version }}/bin/gradle -v"
+      tags:
+      - apps  
+      - install    

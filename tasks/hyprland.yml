@@ -1,0 +1,36 @@
+    - name: Install hyprland necesary dependencies with yay
+      shell: runuser -l {{ ansible_user }} -c 'yay -Syu --noconfirm gdb ninja gcc cmake meson libxcb xcb-proto xcb-util xcb-util-keysyms libxfixes libx11 libxcomposite xorg-xinput libxrender pixman wayland-protocols cairo pango seatd libxkbcommon xcb-util-wm xorg-xwayland libinput libliftoff libdisplay-info cpio'
+      tags:
+        - install
+        - hyprland
+
+    - name: Install more hyprland necesary dependencies with yay
+      become: true
+      shell: runuser -l {{ ansible_user }} -c 'yay -Syu --noconfirm hyprpaper hyprpicker-git rofi qt5-wayland qt5ct qt6-wayland qt6ct qt5-svg qt5-quickcontrols2 qt5-graphicaleffects gtk3 polkit-gnome wireplumber jq wl-clipboard cliphist python-requests pacman-contrib'
+      tags:
+        - install
+        - hyprland
+
+    - name: Clone Hyprland repository
+      git:
+        repo: https://github.com/hyprwm/Hyprland
+        dest: "/home/{{ ansible_user }}/Hyprland"
+        recursive: true
+      tags:
+        - install
+        - hyprland
+
+    - name: Build and install Hyprland
+      shell: "cd /home/{{ ansible_user }}/Hyprland && make all && make install"
+      tags:
+        - install
+        - hyprland
+
+    - name: install waybar 
+      become: true
+      pacman:
+        name:
+          - waybar
+
+
+

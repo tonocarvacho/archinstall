@@ -5,13 +5,86 @@
     pacman:
       update_cache: true
       upgrade: yes
+    tags:
+    - core
+    - dotfiles
+    - yay
+    - zsh
+    - tmux
+    - nvim
+    - node
+    - apps
+    - java
+    - hyprland
+    - hyprland-nvidia
+    - fonts
   tasks:
     - include_tasks: tasks/core.yml
+      tags:
+        - install
+        - core
+
     - include_tasks: tasks/dotfiles.yml
+      tags:
+        - install
+        - dotfiles
+
     - include_tasks: tasks/yay.yml
+      tags:
+        - install
+        - yay
+
     - include_tasks: tasks/zsh.yml
+      tags:
+        - install
+        - zsh
+
     - include_tasks: tasks/tmux.yml
+      tags:
+        - install
+        - tmux
+
     - include_tasks: tasks/nvim.yml
+      tags:
+        - install
+        - nvim
+
     - include_tasks: tasks/node.yml
+      tags:
+        - install
+        - node
+
     - include_tasks: tasks/apps.yml
+      tags:
+        - install
+        - apps
+
     - include_tasks: tasks/java.yml
+      tags:
+        - install
+        - java
+
+    - include_tasks: tasks/hyprland.yml
+      tags:
+        - install
+        - hyprland
+
+    - include_tasks: tasks/hyprland-nvidia.yml
+      tags:
+        - install
+        - hyprland-nvidia
+
+    - include_tasks: tasks/fonts.yml
+      tags:
+        - install
+        - fonts
+
+    - include_tasks: tasks/cache.yml
+      tags:
+        - install
+        - cache
+
+    - include_tasks: tasks/ly.yml
+      tags:
+        - install
+        - ly

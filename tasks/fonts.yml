@@ -1,0 +1,86 @@
+    - name: install fontconfig 
+      become: true
+      pacman:
+        name:
+          - fontconfig 
+      tags:
+        - install
+        - fonts
+
+    - name: Ensure the directory exists
+      become: true
+      become_user: "{{ ansible_user }}"
+      file:
+        path: "/home/{{ ansible_user }}/tmp"
+        state: directory
+      tags:
+        - install
+        - fonts
+
+    - name: Download Nerd Fonts Inconsolata zip file
+      become: true
+      become_user: "{{ ansible_user }}"
+      get_url:
+        url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Inconsolata.zip
+        dest: /home/{{ ansible_user }}/tmp/Inconsolata.zip
+      tags:
+        - install
+        - fonts
+
+    - name: Ensure /home/{{ ansible_user }}/.local/share/fonts/ directory exists
+      become: true
+      become_user: "{{ ansible_user }}"
+      file:
+        path: /home/{{ ansible_user }}/.local/share/fonts
+        state: directory
+        mode: 0755
+      tags:
+        - install
+        - fonts
+
+    - name: Create nerd-fonts directory inside /home/{{ ansible_user }}/.local/share/fonts/
+      become: true
+      become_user: "{{ ansible_user }}"
+      file:
+        path: /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts
+        state: directory
+        mode: 0755
+      tags:
+        - install
+        - fonts
+
+    - name: Copy Inconsolata.zip to /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/
+      become: true
+      become_user: "{{ ansible_user }}"
+      copy:
+        src: /home/{{ ansible_user }}/tmp/Inconsolata.zip
+        dest: /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/Inconsolata.zip
+      tags:
+        - install
+        - fonts
+
+    - name: Extract Inconsolata.zip
+      become: true
+      become_user: "{{ ansible_user }}"
+      unarchive:
+        src: /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/Inconsolata.zip
+        dest: /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/
+      tags:
+        - install
+        - fonts
+
+    - name: Remove Inconsolata.zip
+      become: true
+      become_user: "{{ ansible_user }}"
+      file:
+        path: /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/Inconsolata.zip
+        state: absent
+      tags:
+        - install
+        - fonts
+
+    - name: Run fc-cache
+      command: fc-cache -vf
+      tags:
+        - install
+        - fonts

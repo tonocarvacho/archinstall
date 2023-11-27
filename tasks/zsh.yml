@@ -1,17 +1,33 @@
     - name: install zsh 
+      become: yes
       pacman:
         update_cache: yes
         name:
           - zsh
           - starship
+      tags:
+      - install
+      - zsh
 
     - name: Install zsh-autosuggestions
-      ansible.builtin.git:
+      git:
         repo: 'https://github.com/zsh-users/zsh-autosuggestions'
-        dest: "~/.zsh/zsh-autosuggestions"
+        dest: "/home/{{ ansible_user }}/.zsh/zsh-autosuggestions"
+      tags:
+      - install
+      - zsh
 
     - name: Install zsh-syntax-highlighting 
-      ansible.builtin.git:
+      git:
         repo: 'https://github.com/zsh-users/zsh-syntax-highlighting'
-        dest: "~/.zsh/zsh-syntax-highlighting"
+        dest: "/home/{{ ansible_user }}/.zsh/zsh-syntax-highlighting"
+      tags:
+      - install
+      - zsh
+
+    # - name: set zsh default
+    #   shell: chsh -s $(which zsh)
+    #   tags:
+    #   - install
+    #   - zsh
 

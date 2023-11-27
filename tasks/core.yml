@@ -1,56 +1,83 @@
-    - name: install base 
+    - name: install base packages
+      become: true
       pacman:
-        update_cache: yes
         name:
           - curl
           - base-devel
           - cmake
-          - fzf
-          - python-pip
-          - python-pexpect
-          - python-setuptools
+          # - python-pip
+          # - python-pexpect
+          # - python-setuptools
           - unzip
+          - ripgrep
+          # - xorg-server
+          - nvidia
+      tags:
+      - core      
+      - install
 
 # USERS PERMISSIONS  ---------------------------------------------------------
     - name: add the user to the root group
+      become: true
       user:
         name: "{{ ansible_user }}"
         groups: root
         append: yes
+      tags:
+      - core 
+      - install
 
     - name: disable need for sudo password for the current user
+      become: true
       lineinfile:
         path: "/etc/sudoers.d/02_no_pswd_for_{{ ansible_env.SUDO_UID }}"
         state: present
         line: "{{ ansible_user }} ALL=(ALL:ALL) NOPASSWD: ALL"
         validate: /usr/sbin/visudo -cf %s
         create: yes
+      tags:
+      - core 
+      - install
 
 
 # SYSTEM SETTINGS CHANGES ----------------------------------------------------
 
     - name: pacman - enable color
+      become: true
       lineinfile:
         path: /etc/pacman.conf
         regexp: '^#Color$'
         line: 'Color'
+      tags:
+      - core 
+      - install
 
     - name: pacman - enable ParallelDownloads = 5
+      become: true
       lineinfile:
         path: /etc/pacman.conf
         regexp: '#ParallelDownloads = 5'
         line: 'ParallelDownloads = 5'
+      tags:
+      - core 
+      - install
 
 # SSH ------------------------------------------------------------------------
 
-    #- name: install ssh
-      #pacman:
-        #name:
-          #- openssh
+    # - name: install ssh
+    #   pacman:
+    #     name:
+    #       - openssh
+    #   tags:
+    #   - core 
+    #   - install
 
-    #- name: enable and start ssh service
-      #systemd:
-        #name: sshd
-        #enabled: yes
-        #state: started
+    # - name: enable and start ssh service
+    #   systemd:
+    #     name: sshd
+    #     enabled: yes
+    #     state: started
+    #   tags:
+    #   - core 
+    #   - install
 

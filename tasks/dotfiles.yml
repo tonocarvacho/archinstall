@@ -1,13 +1,21 @@
     - name: install stow 
       pacman:
-        update_cache: yes
         name:
           - stow
+      tags:
+      - dotfiles 
+      - install
 
     - name: clone dotfiles
-      ansible.builtin.git:
+      git:
         repo: 'https://github.com/tonocarvacho/.dotfiles'
-        dest: "~/.dotfiles"
+        dest: "/home/{{ ansible_user }}/.dotfiles"
+      tags:
+      - dotfiles 
+      - install
 
     - name: stow dotfiles
-      shell: cd ~/.dotfiles && stow zsh && stow fzf && stow starship && stow nvim && stow tmux && stow bin -t /usr/local/bin && stow vifm && stow scrot
+      shell: cd /home/{{ ansible_user }}/.dotfiles && stow zsh && stow fzf && stow starship && stow config && stow tmux && stow bin -t /usr/local/bin && stow vifm && stow hypr
+      tags:
+      - dotfiles 
+      - install

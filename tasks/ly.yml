@@ -1,0 +1,30 @@
+    - name: Remove ly
+      shell: rm -rf /home/{{ ansible_user }}/ly
+      tags:
+      - install
+      - ly
+
+    - name: Clone ly
+      shell: "cd /home/{{ ansible_user }} && git clone --recurse-submodules https://github.com/fairyglade/ly"
+      tags:
+      - install
+      - ly
+
+    - name: Build ly
+      shell: "cd /home/{{ ansible_user }}/ly && make"
+      tags:
+      - install
+      - ly
+
+    - name: Install ly
+      shell: "cd /home/{{ ansible_user }}/ly && make run && make install installsystemd"
+      tags:
+      - install
+      - ly
+
+    - name: enable ly
+      become: true
+      shell: "systemctl enable ly.service"
+      tags:
+      - install
+      - ly
