@@ -11,7 +11,7 @@
       become: true
       become_user: "{{ ansible_user }}"
       git:
-        repo: 'https://github.com/tonocarvacho/.dotfiles'
+        repo: 'git@github.com:tonocarvacho/.dotfiles.git'
         dest: "/home/{{ ansible_user }}/.dotfiles"
       tags:
       - dotfiles 
@@ -20,16 +20,17 @@
     - name: stow dotfiles
       become: true
       become_user: "{{ ansible_user }}"
-      shell: cd /home/{{ ansible_user }}/.dotfiles && stow zsh && stow fzf && stow starship && stow config && stow tmux && stow bin && stow vifm && stow hypr && stow waybar && stow kitty && stow images
+      shell: cd /home/{{ ansible_user }}/.dotfiles && stow -SR zsh fzf starship nvim tmux bin vifm hypr waybar kitty images fonts
       tags:
       - dotfiles 
       - install
 
-    - name: copy tmux-sessionizer
-      become: true
-      copy:
-        src: /home/{{ ansible_user }}/.dotfiles/bin/.local/bin/tmux-sessionizer
-        dest: /usr/local/bin/tmux-sessionizer
-      tags:
-      - dotfiles 
-      - install
+    # - name: copy tmux-sessionizer
+    #   become: true
+    #   become_user: "{{ ansible_user }}"
+    #   copy:
+    #     src: /home/{{ ansible_user }}/.dotfiles/bin/.local/bin/tmux-sessionizer
+    #     dest: /usr/local/bin/tmux-sessionizer
+    #   tags:
+    #   - dotfiles 
+    #   - install

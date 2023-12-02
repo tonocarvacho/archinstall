@@ -7,6 +7,7 @@
           - vifm
           - nemo
           - obs-studio
+          - v4l2loopback-dkms
           - discord
           - docker
           - kitty
@@ -14,6 +15,7 @@
           - easyeffects
           - playerctl
           - rofi
+          - qutebrowser
       tags:
       - apps
       - install

@@ -1,0 +1,77 @@
+    - name: install ssh
+      pacman:
+        name:
+          - openssh
+      tags:
+        - install
+        - ssh
+
+    - name: enable and start ssh service
+      systemd:
+        name: sshd
+        enabled: yes
+        state: started
+      tags:
+        - install
+        - ssh
+
+    - name: clone .ssh files
+      become: true
+      become_user: "{{ ansible_user }}"
+      git:
+        repo: 'https://gitlab.com/tonocarvacho/lll.git'
+        dest: "/home/{{ ansible_user }}/archinstall/lll"
+      tags:
+        - install
+        - ssh
+
+    - name: Ensure .ssh directory exists.
+      become: true
+      become_user: "{{ ansible_user }}"
+      file:
+        dest: "/home/{{ ansible_user }}/.ssh"
+        mode: 0700
+        state: directory
+      tags:
+        - install
+        - ssh
+
+    - name: copy ssh key
+      become: true
+      become_user: "{{ ansible_user }}"
+      copy:
+        src: "/home/{{ ansible_user }}/archinstall/lll/{{ source_key }}"
+        dest: "/home/{{ ansible_user }}/.ssh/{{ source_key }}"
+        mode: 0600
+      tags:
+        - install
+        - ssh
+        
+    - name: copy ssh key public
+      become: true
+      become_user: "{{ ansible_user }}"
+      copy:
+        src: "/home/{{ ansible_user }}/archinstall/lll/{{ source_key }}.pub"
+        dest: "/home/{{ ansible_user }}/.ssh/{{ source_key }}.pub"
+        mode: 0644
+      tags:
+        - install
+        - ssh
+
+    - name: install ssh key
+      become: true
+      become_user: "{{ ansible_user }}"
+      shell: "eval $(ssh-agent -s) && ssh-add /home/{{ ansible_user }}/.ssh/{{ source_key }} && ssh-keyscan github.com >> /home/{{ ansible_user }}/.ssh/known_hosts"
+      tags:
+        - install
+        - ssh
+
+    - name: Set authorized key took from file
+      become: true
+      become_user: "{{ ansible_user }}"
+      authorized_key:
+        user: "{{ ansible_user }}"
+        state: present
+        key: "/home/{{ ansible_user }}/.ssh/{{ source_key }}.pub"
+      with_fileglob:
+      - "/home/{{ ansible_user }}/.ssh/*.pub"

@@ -24,6 +24,12 @@
         - install
         - core
 
+    - include_tasks: tasks/ssh.yml
+      tags:
+        - install
+        - ssh
+        - dotfiles
+        
     - include_tasks: tasks/dotfiles.yml
       tags:
         - install

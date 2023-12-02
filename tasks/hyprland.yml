@@ -1,13 +1,13 @@
     - name: Install hyprland necesary dependencies with yay
       become: true
-      shell: runuser -l {{ ansible_user }} -c 'yay -Syu --noconfirm gdb ninja gcc cmake meson libxcb xcb-proto xcb-util xcb-util-keysyms libxfixes libx11 libxcomposite xorg-xinput libxrender pixman wayland-protocols cairo pango seatd libxkbcommon xcb-util-wm xorg-xwayland libinput libliftoff libdisplay-info cpio'
+      shell: runuser -l {{ ansible_user }} -c 'yay -Syu --noconfirm libinih scdoc gdb ninja gcc cmake meson libxcb xcb-proto xcb-util xcb-util-keysyms libxfixes libx11 libxcomposite xorg-xinput libxrender pixman wayland-protocols cairo pango seatd libxkbcommon xcb-util-wm xorg-xwayland libinput libliftoff libdisplay-info cpio'
       tags:
         - install
         - hyprland
 
     - name: Install more hyprland necesary dependencies with yay
       become: true
-      shell: runuser -l {{ ansible_user }} -c 'yay -Syu --noconfirm hyprpaper hyprpicker-git rofi qt5-wayland qt5ct qt6-wayland qt6ct qt5-svg qt5-quickcontrols2 qt5-graphicaleffects gtk3 polkit-gnome wireplumber jq wl-clipboard cliphist python-requests pacman-contrib'
+      shell: runuser -l {{ ansible_user }} -c 'yay -Syu --noconfirm xdg-desktop-portal-hyprland-git mako hyprpaper hyprpicker-git rofi qt5-wayland qt5ct qt6-wayland qt6ct qt5-svg qt5-quickcontrols2 qt5-graphicaleffects gtk3 polkit-gnome wireplumber jq wl-clipboard cliphist python-requests pacman-contrib'
       tags:
         - install
         - hyprland
@@ -32,6 +32,8 @@
       pacman:
         name:
           - waybar
+          - grim
+          - slurp
       tags:
         - install
         - hyprland
