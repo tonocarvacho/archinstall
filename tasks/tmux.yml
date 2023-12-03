@@ -10,7 +10,17 @@
 
     - name: install gitmux
       become: true
-      shell: runuser -l {{ ansible_user }} -c 'yay -S gitmux --noconfirm' 
+      shell: runuser -l {{ ansible_user }} -c 'yay -Syu gitmux --noconfirm' 
+      tags:
+      - install
+      - tmux
+
+    - name: clone tpm (plugin manager)
+      become: true
+      become_user: "{{ ansible_user }}"
+      git:
+        repo: 'https://github.com/tmux-plugins/tpm'
+        dest: "/home/{{ ansible_user }}/.tmux/plugins/tpm"
       tags:
       - install
       - tmux

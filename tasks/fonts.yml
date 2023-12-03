@@ -17,16 +17,6 @@
         - install
         - fonts
 
-    - name: Download Nerd Fonts Inconsolata zip file
-      become: true
-      become_user: "{{ ansible_user }}"
-      get_url:
-        url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Inconsolata.zip
-        dest: /home/{{ ansible_user }}/tmp/Inconsolata.zip
-      tags:
-        - install
-        - fonts
-
     - name: Ensure /home/{{ ansible_user }}/.local/share/fonts/ directory exists
       become: true
       become_user: "{{ ansible_user }}"
@@ -48,32 +38,82 @@
       tags:
         - install
         - fonts
+          
+    #- name: Download Nerd Fonts Inconsolata zip file
+      #become: true
+      #become_user: "{{ ansible_user }}"
+      #get_url:
+        #url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/Inconsolata.zip
+        #dest: /home/{{ ansible_user }}/tmp/Inconsolata.zip
+      #tags:
+        #- install
+        #- fonts
 
-    - name: Copy Inconsolata.zip to /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/
+    #- name: Copy Inconsolata.zip to /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/
+      #become: true
+      #become_user: "{{ ansible_user }}"
+      #copy:
+        #src: /home/{{ ansible_user }}/tmp/Inconsolata.zip
+        #dest: /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/Inconsolata.zip
+      #tags:
+        #- install
+        #- fonts
+
+    #- name: Extract Inconsolata.zip
+      #become: true
+      #become_user: "{{ ansible_user }}"
+      #unarchive:
+        #src: /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/Inconsolata.zip
+        #dest: /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/
+      #tags:
+        #- install
+        #- fonts
+
+    #- name: Remove Inconsolata.zip
+      #become: true
+      #become_user: "{{ ansible_user }}"
+      #file:
+        #path: /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/Inconsolata.zip
+        #state: absent
+      #tags:
+        #- install
+        #- fonts
+
+    - name: Download Nerd Fonts JetBrainsMono.zip file
       become: true
       become_user: "{{ ansible_user }}"
-      copy:
-        src: /home/{{ ansible_user }}/tmp/Inconsolata.zip
-        dest: /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/Inconsolata.zip
+      get_url:
+        url: https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
+        dest: /home/{{ ansible_user }}/tmp/JetBrainsMono.zip
       tags:
         - install
         - fonts
 
-    - name: Extract Inconsolata.zip
+    - name: Copy JetBrainsMono.zip to ~/.local/share/fonts/nerd-fonts/
+      become: true
+      become_user: "{{ ansible_user }}"
+      copy:
+        src: /home/{{ ansible_user }}/tmp/JetBrainsMono.zip
+        dest: /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/JetBrainsMono.zip
+      tags:
+        - install
+        - fonts
+
+    - name: Extract JetBrainsMono.zip
       become: true
       become_user: "{{ ansible_user }}"
       unarchive:
-        src: /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/Inconsolata.zip
+        src: /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/JetBrainsMono.zip
         dest: /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/
       tags:
         - install
         - fonts
 
-    - name: Remove Inconsolata.zip
+    - name: Remove JetBrainsMono.zip
       become: true
       become_user: "{{ ansible_user }}"
       file:
-        path: /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/Inconsolata.zip
+        path: /home/{{ ansible_user }}/.local/share/fonts/nerd-fonts/JetBrainsMono.zip
         state: absent
       tags:
         - install
