@@ -18,6 +18,9 @@
     - hyprland
     - hyprland-nvidia
     - fonts
+    - update
+    - obsidian
+    - ssh
   tasks:
     - include_tasks: tasks/core.yml
       tags:
@@ -28,7 +31,6 @@
       tags:
         - install
         - ssh
-        - dotfiles
         
     - include_tasks: tasks/dotfiles.yml
       tags:
@@ -85,12 +87,16 @@
         - install
         - fonts
 
-    - include_tasks: tasks/cache.yml
+    - include_tasks: tasks/update.yml
       tags:
         - install
-        - cache
+        - update
+
+    - include_tasks: tasks/obsidian.yml
+      tags:
+        - install
+        - obsidian
 
     - include_tasks: tasks/ly.yml
       tags:
-        - install
         - ly

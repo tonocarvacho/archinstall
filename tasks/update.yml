@@ -1,0 +1,20 @@
+    - name: update pacman
+      become: true
+      shell: pacman -Syu --noconfirm
+      tags:
+      - install
+      - update
+
+    - name: update yay apps
+      become: true
+      shell: runuser -l {{ ansible_user }} -c 'yay -Syu --noconfirm'
+      tags:
+        - install
+        - update 
+
+    - name: clean cache 
+      become: true
+      shell: pacman -Sc --noconfirm
+      tags:
+      - install
+      - update 

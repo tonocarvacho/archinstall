@@ -8,12 +8,12 @@
       - install
       - tmux
 
-    - name: install gitmux
-      become: true
-      shell: runuser -l {{ ansible_user }} -c 'yay -Syu gitmux --noconfirm' 
-      tags:
-      - install
-      - tmux
+    #- name: install gitmux
+      #become: true
+      #shell: runuser -l {{ ansible_user }} -c 'yay -Syu gitmux --noconfirm' 
+      #tags:
+      #- install
+      #- tmux
 
     - name: clone tpm (plugin manager)
       become: true

@@ -2,7 +2,6 @@
       become: true
       pacman:
         name:
-          - spotify-launcher 
           - mpv
           - vifm
           - nemo
@@ -16,13 +15,14 @@
           - playerctl
           - rofi
           - qutebrowser
+          - zoxide
       tags:
       - apps
       - install
 
     - name: install more apps with yay
       become: true
-      shell: runuser -l {{ ansible_user }} -c 'yay -S brave-bin google-chrome slack-desktop gummy lazygit --noconfirm' 
+      shell: runuser -l {{ ansible_user }} -c 'yay -Syu spotify brave-bin google-chrome slack-desktop gummy lazygit --noconfirm' 
       tags:
       - apps   
       - install  

@@ -1,6 +1,0 @@
-    - name: clean cache 
-      become: true
-      shell: pacman -Sc --noconfirm
-      tags:
-      - install
-      - cache

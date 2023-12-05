@@ -1,0 +1,26 @@
+    - name: install apps 
+      become: true
+      pacman:
+        name:
+          - obsidian
+          - syncthing
+      tags:
+      - install
+      - obsidian
+
+    - name: Remove notes
+      become: true
+      shell: rm -rf /home/{{ ansible_user }}/personal/notes
+      tags:
+      - install
+      - obsidian
+
+    - name: Clone notes
+      become: true
+      become_user: "{{ ansible_user }}"
+      git:
+        repo: 'git@github.com:tonocarvacho/notes.git'
+        dest: "/home/{{ ansible_user }}/personal/notes"
+      tags:
+      - install
+      - obsidian

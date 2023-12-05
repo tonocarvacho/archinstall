@@ -66,12 +66,12 @@
         - install
         - ssh
 
-    - name: Set authorized key took from file
-      become: true
-      become_user: "{{ ansible_user }}"
-      authorized_key:
-        user: "{{ ansible_user }}"
-        state: present
-        key: "/home/{{ ansible_user }}/.ssh/{{ source_key }}.pub"
-      with_fileglob:
-      - "/home/{{ ansible_user }}/.ssh/*.pub"
+    #- name: Set authorized key took from file
+      #become: true
+      #become_user: "{{ ansible_user }}"
+      #authorized_key:
+        #user: "{{ ansible_user }}"
+        #state: present
+        #key: "/home/{{ ansible_user }}/.ssh/{{ source_key }}.pub"
+      #with_fileglob:
+      #- "/home/{{ ansible_user }}/.ssh/*.pub"

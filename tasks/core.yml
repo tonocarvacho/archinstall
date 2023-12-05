@@ -12,6 +12,7 @@
           - ripgrep
           - xorg-server
           - nvidia
+          - pavucontrol
       tags:
       - core      
       - install

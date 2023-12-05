@@ -1,3 +1,10 @@
+    - name: Remove hyprland
+      become: true
+      shell: rm -rf /home/{{ ansible_user }}/Hyprland
+      tags:
+      - install
+      - hyprland
+
     - name: Install hyprland necesary dependencies with yay
       become: true
       shell: runuser -l {{ ansible_user }} -c 'yay -Syu --noconfirm libinih scdoc gdb ninja gcc cmake meson libxcb xcb-proto xcb-util xcb-util-keysyms libxfixes libx11 libxcomposite xorg-xinput libxrender pixman wayland-protocols cairo pango seatd libxkbcommon xcb-util-wm xorg-xwayland libinput libliftoff libdisplay-info cpio'
@@ -13,6 +20,8 @@
         - hyprland
 
     - name: Clone Hyprland repository
+      become: true
+      become_user: "{{ ansible_user }}"
       git:
         repo: https://github.com/hyprwm/Hyprland
         dest: "/home/{{ ansible_user }}/Hyprland"
@@ -22,6 +31,7 @@
         - hyprland
 
     - name: Build and install Hyprland
+      become: true
       shell: "cd /home/{{ ansible_user }}/Hyprland && make all && make install"
       tags:
         - install
@@ -30,6 +40,7 @@
     - name: install waybar 
       become: true
       pacman:
+        upgrade: yes
         name:
           - waybar
           - grim
