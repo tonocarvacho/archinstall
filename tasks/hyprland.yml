@@ -32,6 +32,7 @@
 
     - name: Build and install Hyprland
       become: true
+      become_user: "{{ ansible_user }}"
       shell: "cd /home/{{ ansible_user }}/Hyprland && make all && make install"
       tags:
         - install

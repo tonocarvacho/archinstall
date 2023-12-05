@@ -7,20 +7,20 @@
       upgrade: yes
     tags:
     - core
+    - ssh
     - dotfiles
     - yay
     - zsh
+    - fonts
     - tmux
     - nvim
+    - obsidian
     - node
     - apps
     - java
     - hyprland
     - hyprland-nvidia
-    - fonts
     - update
-    - obsidian
-    - ssh
   tasks:
     - include_tasks: tasks/core.yml
       tags:
@@ -47,6 +47,16 @@
         - install
         - zsh
 
+    - include_tasks: tasks/fonts.yml
+      tags:
+        - install
+        - fonts
+
+    - include_tasks: tasks/node.yml
+      tags:
+        - install
+        - node
+
     - include_tasks: tasks/tmux.yml
       tags:
         - install
@@ -57,10 +67,10 @@
         - install
         - nvim
 
-    - include_tasks: tasks/node.yml
+    - include_tasks: tasks/obsidian.yml
       tags:
         - install
-        - node
+        - obsidian
 
     - include_tasks: tasks/apps.yml
       tags:
@@ -82,21 +92,12 @@
         - install
         - hyprland-nvidia
 
-    - include_tasks: tasks/fonts.yml
-      tags:
-        - install
-        - fonts
+    #- include_tasks: tasks/ly.yml
+      #tags:
+        #- ly
 
     - include_tasks: tasks/update.yml
       tags:
         - install
         - update
 
-    - include_tasks: tasks/obsidian.yml
-      tags:
-        - install
-        - obsidian
-
-    - include_tasks: tasks/ly.yml
-      tags:
-        - ly
