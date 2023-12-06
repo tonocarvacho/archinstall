@@ -93,10 +93,10 @@
         - install
         - hyprland-nvidia
 
-    - include_tasks: tasks/archinstall.yml
-      tags:
-        - install
-        - archinstall 
+    #- include_tasks: tasks/archinstall.yml
+      #tags:
+        #- install
+        #- archinstall 
 
     #- include_tasks: tasks/ly.yml
       #tags:

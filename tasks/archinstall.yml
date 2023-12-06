@@ -1,17 +1,17 @@
-    - name: Remove archinstall
-      become: true
-      become_user: "{{ ansible_user }}"
-      shell: rm -rf /home/{{ ansible_user }}/archinstall
-      tags:
-      - install
-      - archinstall
+    #- name: Remove archinstall
+      #become: true
+      #become_user: "{{ ansible_user }}"
+      #shell: rm -rf /home/{{ ansible_user }}/archinstall/
+      #tags:
+      #- install
+      #- archinstall
 
-    - name: Clone archinstall
-      become: true
-      become_user: "{{ ansible_user }}"
-      git:
-        repo: 'ssh://git@github.com/tonocarvacho/archinstall.git'
-        dest: "/home/{{ ansible_user }}/archinstall"
-      tags:
-      - install
-      - archinstall
+    #- name: Clone archinstall
+      #become: true
+      #become_user: "{{ ansible_user }}"
+      #git:
+        #repo: 'ssh://git@github.com/tonocarvacho/archinstall.git'
+        #dest: "/home/{{ ansible_user }}/archinstall"
+      #tags:
+      #- install
+      #- archinstall
