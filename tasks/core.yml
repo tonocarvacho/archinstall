@@ -13,6 +13,9 @@
           - xorg-server
           - nvidia
           - pavucontrol
+          - ninja
+          - git
+          - ansible
       tags:
       - core      
       - install

@@ -30,10 +30,17 @@
         - install
         - hyprland
 
-    - name: Build and install Hyprland
+    - name: Build Hyprland
       become: true
       become_user: "{{ ansible_user }}"
-      shell: "cd /home/{{ ansible_user }}/Hyprland && make all && make install"
+      shell: "cd /home/{{ ansible_user }}/Hyprland && make all"
+      tags:
+        - install
+        - hyprland
+
+    - name: install Hyprland
+      become: true
+      shell: "cd /home/{{ ansible_user }}/Hyprland && make install"
       tags:
         - install
         - hyprland
@@ -41,7 +48,6 @@
     - name: install waybar 
       become: true
       pacman:
-        upgrade: yes
         name:
           - waybar
           - grim

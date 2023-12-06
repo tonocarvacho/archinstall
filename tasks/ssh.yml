@@ -58,10 +58,10 @@
         - install
         - ssh
 
-    - name: install ssh key
+    - name: add git user
       become: true
       become_user: "{{ ansible_user }}"
-      shell: "eval $(ssh-agent -s) && ssh-add /home/{{ ansible_user }}/.ssh/{{ source_key }} && ssh-keyscan github.com >> /home/{{ ansible_user }}/.ssh/known_hosts"
+      shell: "git config --global user.email {{ ansible_user }}@gmail.com && git config --global user.name {{ ansible_user }}"
       tags:
         - install
         - ssh

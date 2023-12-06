@@ -21,6 +21,7 @@
     - hyprland
     - hyprland-nvidia
     - update
+    - archinstall
   tasks:
     - include_tasks: tasks/core.yml
       tags:
@@ -91,6 +92,11 @@
       tags:
         - install
         - hyprland-nvidia
+
+    - include_tasks: tasks/archinstall.yml
+      tags:
+        - install
+        - archinstall 
 
     #- include_tasks: tasks/ly.yml
       #tags:

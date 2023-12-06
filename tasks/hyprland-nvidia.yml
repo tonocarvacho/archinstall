@@ -7,7 +7,7 @@
 
     - name: update /boot/loader/entries/*_linux.config
       become: true
-      shell: sed -i '$ a\nvidia_drm.modeset=1' /boot/loader/entries/*_linux.config
+      shell: find /boot/loader/entries/ -type f -exec sed -i '$ a\nvidia_drm.modeset=1' {} \;
       tags:
         - install
         - hyprland-nvidia
@@ -38,6 +38,4 @@
       tags:
         - install
         - hyprland-nvidia
-
-
 
